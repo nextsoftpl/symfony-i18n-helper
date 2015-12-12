@@ -3,6 +3,7 @@ var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
 var mkdirp = require('mkdirp');
+var unescape = require('unescape');
 
 var def = {
     'POLSKI': 'pl',
@@ -29,7 +30,7 @@ function MessageXML(lang, rows) {
 
     xw.startDocument();
 
-    xw.startDocType('xliff',  '-//XLIFF//DTD XLIFF//EN', 'http://www.oasis-open.org/committees/xliff/documents/xliff.dtd', 'PUBLIC');
+    xw.startDocType('xliff',  '-//XLIFF//DTD XLIFF//EN', 'http://www.oasis-open.org/committees/xliff/documents/xliff.dtd');
     xw.endDocType();
 
     xw.startElement('xliff');
@@ -53,8 +54,8 @@ function MessageXML(lang, rows) {
         i++;
         xw.startElement('trans-unit');
         xw.writeAttribute('id', i);
-        xw.writeElement('source', index);
-        xw.writeElement('target', element);
+        xw.writeElement('source', unescape(index));
+        xw.writeElement('target', unescape(element));
         xw.endElement();
     });
 
