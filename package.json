@@ -13,6 +13,7 @@
     "gulp": "^3.9.0",
     "gulp-excel2json": "^1.0.5",
     "jsonfile": "^2.2.3",
+    "mkdirp": "^0.5.1",
     "underscore": "^1.8.3",
     "xml-writer": "^1.6.0"
   }

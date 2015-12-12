@@ -1,6 +1,16 @@
 var XMLWriter = require('xml-writer');
-var xw = new XMLWriter();
+var fs = require('fs');
+var path = require('path');
 var _ = require('underscore');
+var mkdirp = require('mkdirp');
+
+var def = {
+    'POLSKI': 'pl',
+    'ENGLISH': 'en',
+    'NORSK': 'no',
+    'SVENSKA': 'sv',
+    'DANSK': 'dk'
+};
 
 
 module.exports = {
@@ -8,6 +18,14 @@ module.exports = {
 };
 
 function MessageXML(lang, rows) {
+    console.log(def[lang]);
+    console.log(lang);
+    mkdirp( 'release/' + def[lang] + "/" );
+    var ws = fs.createWriteStream('release/'+def[lang]+'/messages.xml');
+
+    var xw = new XMLWriter(true, function(string, encoding) {
+        ws.write(string, encoding);
+    });
 
     xw.startDocument();
 
@@ -19,7 +37,7 @@ function MessageXML(lang, rows) {
 
     xw.startElement('file');
     xw.writeAttribute('source-language', 'EN');
-    xw.writeAttribute('target-language', lang);
+    xw.writeAttribute('target-language', def[lang]);
     xw.writeAttribute('datatype', "plaintext");
     xw.writeAttribute('original', "messages");
     xw.writeAttribute('date', new Date().toString());
@@ -35,12 +53,16 @@ function MessageXML(lang, rows) {
         i++;
         xw.startElement('trans-unit');
         xw.writeAttribute('id', i);
-        xw.startElement('source');
         xw.writeElement('source', index);
         xw.writeElement('target', element);
+        xw.endElement();
     });
+
+    xw.endElement();
+    xw.endElement();
+    xw.endElement();
 
     xw.endDocument();
 
-    console.log(xw.toString());
+    ws.end();
 }

@@ -24,7 +24,6 @@ gulp.task('convert', function(){
 
         _.each(obj, function(element, source){
             _.each(element, function(target, lang){
-                console.log(lang);
                 if(!transl[lang]){
                     transl[lang] = {};
                 }
@@ -32,10 +31,10 @@ gulp.task('convert', function(){
             });
         });
 
-        _.each()
+        _.each(transl, function(rows,lang){
+            var messageXML = new MessageXML(lang, rows);
+        })
 
     });
-
-    //var xmlpl = new MessageXML('pl');
 
 });
