@@ -19,8 +19,7 @@ module.exports = {
 };
 
 function MessageXML(lang, rows) {
-    console.log(def[lang]);
-    console.log(lang);
+
     mkdirp( 'release/' + def[lang] + "/" );
     var ws = fs.createWriteStream('release/'+def[lang]+'/messages.xml');
 
