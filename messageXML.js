@@ -53,8 +53,8 @@ function MessageXML(lang, rows) {
         i++;
         xw.startElement('trans-unit');
         xw.writeAttribute('id', i);
-        xw.writeElement('source', unescape(index));
-        xw.writeElement('target', unescape(element));
+        xw.writeElement('source', unescape(index).replace(/&#10;/g,"\n"));
+        xw.writeElement('target', unescape(element).replace(/&#10;/g,"\n"));
         xw.endElement();
     });
 
